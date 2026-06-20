@@ -4,11 +4,8 @@ import { Link } from "react-router-dom";
 const Hero = () => {
   return (
     <section
-      className="relative overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, #14532d 0%, #166534 40%, #15803d 70%, #16a34a 100%)",
-        minHeight: "88vh",
-      }}
+      className="relative overflow-hidden bg-gradient-to-br from-leaf-900 via-leaf-800 to-leaf-700 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700"
+      style={{ minHeight: "88vh" }}
     >
       {/* Decorative background blobs */}
       <div
@@ -122,8 +119,11 @@ const Hero = () => {
 
       {/* Bottom wave */}
       <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="dark:hidden">
           <path d="M0 60L1440 60L1440 20C1200 60 960 0 720 20C480 40 240 0 0 20L0 60Z" fill="white" />
+        </svg>
+        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="hidden dark:block">
+          <path d="M0 60L1440 60L1440 20C1200 60 960 0 720 20C480 40 240 0 0 20L0 60Z" fill="#1f2937" />
         </svg>
       </div>
     </section>

@@ -71,16 +71,16 @@ const Home = () => {
         {/* Features Section */}
         <section className="max-w-6xl mx-auto px-4 py-16">
           <div className="text-center mb-10">
-            <span className="text-leaf-600 text-sm font-semibold uppercase tracking-widest">
+            <span className="text-leaf-600 dark:text-leaf-400 text-sm font-semibold uppercase tracking-widest">
               What AgriSarthi Does
             </span>
             <h2
-              className="text-gray-800 text-3xl md:text-4xl font-extrabold mt-2"
+              className="text-gray-800 dark:text-gray-100 text-3xl md:text-4xl font-extrabold mt-2"
               style={{ fontFamily: "'Baloo 2', cursive" }}
             >
               हर सवाल का जवाब, तुरंत
             </h2>
-            <p className="text-gray-500 mt-2 max-w-xl mx-auto">
+            <p className="text-gray-500 dark:text-gray-400 mt-2 max-w-xl mx-auto">
               From disease identification to irrigation planning — get reliable guidance
               without waiting for an expert.
             </p>
@@ -94,16 +94,16 @@ const Home = () => {
         </section>
 
         {/* Crops Covered Section */}
-        <section className="bg-leaf-50 py-14">
+        <section className="bg-leaf-50 dark:bg-gray-800 py-14">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-8">
               <h2
-                className="text-gray-800 text-2xl md:text-3xl font-extrabold"
+                className="text-gray-800 dark:text-gray-100 text-2xl md:text-3xl font-extrabold"
                 style={{ fontFamily: "'Baloo 2', cursive" }}
               >
                 Crops We Support
               </h2>
-              <p className="text-gray-500 text-sm mt-1">
+              <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
                 Advice tailored for common Uttarakhand crops
               </p>
             </div>
@@ -111,7 +111,7 @@ const Home = () => {
               {crops.map(({ name, emoji }) => (
                 <div
                   key={name}
-                  className="flex items-center gap-2 bg-white border border-leaf-100 rounded-xl px-5 py-3 shadow-sm text-gray-700 font-medium text-sm"
+                  className="flex items-center gap-2 bg-white dark:bg-gray-700 border border-leaf-100 dark:border-gray-600 rounded-xl px-5 py-3 shadow-sm text-gray-700 dark:text-gray-200 font-medium text-sm"
                 >
                   <span className="text-xl">{emoji}</span> {name}
                 </div>
@@ -123,24 +123,20 @@ const Home = () => {
         {/* CTA Section */}
         <section className="py-16 px-4 text-center">
           <div
-            className="max-w-2xl mx-auto rounded-3xl p-10 shadow-lg"
-            style={{
-              background: "linear-gradient(135deg, #14532d, #16a34a)",
-            }}
+            className="max-w-2xl mx-auto rounded-3xl p-10 shadow-lg bg-gradient-to-br from-leaf-900 to-leaf-600 dark:from-gray-800 dark:to-gray-700"
           >
             <h2
-              className="text-white text-3xl md:text-4xl font-extrabold mb-3"
+              className="text-white dark:text-gray-100 text-3xl md:text-4xl font-extrabold mb-3"
               style={{ fontFamily: "'Baloo 2', cursive" }}
             >
               अभी Sarthi से बात करें
             </h2>
-            <p className="text-leaf-200 mb-6">
+            <p className="text-leaf-200 dark:text-gray-300 mb-6">
               Free, instant, expert-level crop advice — right on your phone.
             </p>
             <Link
               to="/dashboard"
-              className="inline-block font-bold px-10 py-3 rounded-xl text-leaf-800 text-lg transition-all hover:scale-105"
-              style={{ backgroundColor: "#fde68a" }}
+              className="inline-block font-bold px-10 py-3 rounded-xl text-leaf-800 text-lg transition-all hover:scale-105 bg-yellow-300 hover:bg-yellow-400"
             >
               🤖 Start Chatting
             </Link>
