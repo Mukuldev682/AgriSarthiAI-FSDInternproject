@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Card from "../components/Card";
 import Footer from "../components/Footer";
+import Loader from "../components/Loader";
+import Toast from "../components/Toast";
+import { cropAPI } from "../utils/api";
 
 const features = [
   {
@@ -51,16 +54,40 @@ const features = [
   },
 ];
 
-const crops = [
-  { name: "Wheat · गेहूं", emoji: "🌾" },
-  { name: "Rice · धान", emoji: "🌾" },
-  { name: "Tomato · टमाटर", emoji: "🍅" },
-  { name: "Potato · आलू", emoji: "🥔" },
-  { name: "Mustard · सरसों", emoji: "🌼" },
-  { name: "Maize · मक्का", emoji: "🌽" },
-];
-
 const Home = () => {
+  const [crops, setCrops] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Load crops from API
+  useEffect(() => {
+    loadCrops();
+  }, []);
+
+  const loadCrops = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await cropAPI.getAllCrops();
+      if (response.success) {
+        setCrops(response.data);
+      }
+    } catch (err) {
+      setError(err.message);
+      // Set default crops on error
+      setCrops([
+        { name: "Wheat · गेहूं", emoji: "🌾" },
+        { name: "Rice · धान", emoji: "🌾" },
+        { name: "Tomato · टमाटर", emoji: "🍅" },
+        { name: "Potato · आलू", emoji: "🥔" },
+        { name: "Mustard · सरसों", emoji: "🌼" },
+        { name: "Maize · मक्का", emoji: "🌽" },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -108,14 +135,18 @@ const Home = () => {
               </p>
             </div>
             <div className="flex flex-wrap justify-center gap-4">
-              {crops.map(({ name, emoji }) => (
-                <div
-                  key={name}
-                  className="flex items-center gap-2 bg-white dark:bg-gray-700 border border-leaf-100 dark:border-gray-600 rounded-xl px-5 py-3 shadow-sm text-gray-700 dark:text-gray-200 font-medium text-sm"
-                >
-                  <span className="text-xl">{emoji}</span> {name}
-                </div>
-              ))}
+              {loading ? (
+                <Loader size="medium" text="Loading crops..." />
+              ) : (
+                crops.map((crop) => (
+                  <div
+                    key={crop._id || crop.id || crop.name}
+                    className="flex items-center gap-2 bg-white dark:bg-gray-700 border border-leaf-100 dark:border-gray-600 rounded-xl px-5 py-3 shadow-sm text-gray-700 dark:text-gray-200 font-medium text-sm"
+                  >
+                    <span className="text-xl">{crop.emoji || '🌾'}</span> {crop.nameHindi ? `${crop.name} · ${crop.nameHindi}` : crop.name}
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </section>
@@ -144,6 +175,7 @@ const Home = () => {
         </section>
       </main>
       <Footer />
+      {error && <Toast message={error} type="error" onClose={() => setError(null)} />}
     </div>
   );
 };
