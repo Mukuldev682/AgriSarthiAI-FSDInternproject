@@ -37,17 +37,22 @@ api.interceptors.response.use(
 
 export const userAPI = {
   register: async (userData) => {
-    const response = await api.post('/api/users/register', userData);
+    const response = await api.post('/api/auth/register', userData);
     return response.data;
   },
 
   login: async (credentials) => {
-    const response = await api.post('/api/users/login', credentials);
+    const response = await api.post('/api/auth/login', credentials);
     return response.data;
   },
 
   getUser: async (userId) => {
     const response = await api.get(`/api/users/${userId}`);
+    return response.data;
+  },
+
+  getCurrentUser: async () => {
+    const response = await api.get('/api/auth/me');
     return response.data;
   },
 };
@@ -75,6 +80,16 @@ export const cropAPI = {
 
   addCrop: async (cropData) => {
     const response = await api.post('/api/crops', cropData);
+    return response.data;
+  },
+
+  updateCrop: async (cropId, cropData) => {
+    const response = await api.put(`/api/crops/${cropId}`, cropData);
+    return response.data;
+  },
+
+  deleteCrop: async (cropId) => {
+    const response = await api.delete(`/api/crops/${cropId}`);
     return response.data;
   },
 };
